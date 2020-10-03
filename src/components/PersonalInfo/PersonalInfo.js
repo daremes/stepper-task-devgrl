@@ -35,15 +35,16 @@ export default function ParsonalInfo() {
   const validateForm = (newData) => {
     const { firstName, surname, email } = formData;
     const err = {};
-    if (firstName.length < 1) {
-      err.firstName = "Fill in your name.";
-    }
-    if (surname.length < 1) {
-      err.surname = "Fill in your name.";
-    }
-    if (!email.includes("@") || !email.includes(".")) {
-      err.email = "Use your valid email";
-    }
+    // TODO: add validation
+    // if (firstName.length < 1) {
+    //   err.firstName = "Fill in your name.";
+    // }
+    // if (surname.length < 1) {
+    //   err.surname = "Fill in your name.";
+    // }
+    // if (!email.includes("@") || !email.includes(".")) {
+    //   err.email = "Use your valid email";
+    // }
     if (Object.keys(err).length < 1) {
       setPayload({
         ...payload,
