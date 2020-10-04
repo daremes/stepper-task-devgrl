@@ -131,6 +131,9 @@ const InputField = styled.div`
   flex-direction: column;
   max-width: 450px;
   position: relative;
+  @media (max-width: 480px) {
+    max-width: 100%;
+  }
   input {
     padding: 5px;
     font-size: 16px;
