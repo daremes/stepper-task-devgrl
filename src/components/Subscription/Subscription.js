@@ -11,17 +11,17 @@ import mockApi from "../../mockApi";
 import SVGloader from "../../loader.svg";
 // import { basePrices, periods } from "../../mockData";
 
-const stepsOptions = [
-  { name: "Type", component: <SubscriptionType />, isEvaluated: false },
-  { name: "Length", component: <SubscriptionLength />, isEvaluated: false },
-  { name: "Details", component: <PersonalInfo />, isEvaluated: false },
-  { name: "Summary", component: <Summary />, isEvaluated: true },
-];
-
 export default function Subscription() {
   const [payload, setPayload] = useState({});
   const history = useHistory();
   const [isLoading, setLoading] = useState(true);
+
+  const stepsOptions = [
+    { name: "Type", component: <SubscriptionType />, isEvaluated: false },
+    { name: "Length", component: <SubscriptionLength />, isEvaluated: false },
+    { name: "Details", component: <PersonalInfo />, isEvaluated: false },
+    { name: "Summary", component: <Summary />, isEvaluated: true },
+  ];
 
   useEffect(() => {
     async function fetchData() {
@@ -38,9 +38,8 @@ export default function Subscription() {
   const handleSubscribe = () => {
     setLoading(true);
     mockApi("POST", payload).then((res) => {
-      console.log(res);
+      console.log(res.payload);
       setLoading(false);
-
       history.push("/thankyou");
     });
   };
