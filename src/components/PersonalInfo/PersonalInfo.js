@@ -151,10 +151,6 @@ const InputField = styled.div`
     box-shadow: 0px 0px 5px rgba(66, 66, 66, 0);
     margin-bottom: 24px;
     font-family: 'Montserrat', sans-serif;
-    @media (max-width: 416px) {
-      font-size: 14px;
-      max-width: calc(100% - 16px);
-    }
   }
 `;
 
