@@ -37,18 +37,19 @@ export default function ParsonalInfo() {
     };
     if (!touched[name]) {
       // ux concerns: give our user some time to enter a valid email before marking field as "touched" and displaying a validation error
+      // a naive replacement for classic throttle func
       const timeoutToShowError = () =>
         setTimeout(() => {
           setTouched({ ...touched, [name]: true });
-        }, 2000);
+        }, 3500);
       timerId[name] = timeoutToShowError();
     }
     setFormData(newData);
     handleEvaluate(false);
-    validateForm(newData);
+    handleValidation(newData);
   };
 
-  const validateForm = newData => {
+  const handleValidation = newData => {
     const { firstName, surname, email, agreement } = newData;
     const err = {};
     if (firstName.length < 1) {
@@ -129,18 +130,16 @@ export default function ParsonalInfo() {
 }
 
 const Container = styled.div`
+  width: 100%;
   form {
   }
 `;
 const InputField = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 450px;
   position: relative;
-  @media (max-width: 480px) {
-    max-width: 100%;
-  }
   input {
+    max-width: 450px;
     padding: 5px;
     font-size: 16px;
     border-width: 0px;
@@ -154,6 +153,7 @@ const InputField = styled.div`
     font-family: 'Montserrat', sans-serif;
     @media (max-width: 416px) {
       font-size: 14px;
+      max-width: calc(100% - 16px);
     }
   }
 `;
