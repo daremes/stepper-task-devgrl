@@ -25,6 +25,7 @@ export default function SubscriptionType() {
   };
 
   return (
+    // TODO: refactoring
     <Container>
       <h2>Subscription Type</h2>
       <PlanBox
