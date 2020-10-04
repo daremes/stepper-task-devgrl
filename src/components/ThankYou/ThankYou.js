@@ -6,10 +6,10 @@ export default function ThankYou() {
   const history = useHistory();
   useEffect(() => {
     setTimeout(() => history.push("/"), 2000);
-  }, []);
+  }, [history]);
   return (
     <Container>
-      <h1>Thank You etc</h1>
+      <h1>{`Payment->Thank you etc.`}</h1>
     </Container>
   );
 }
