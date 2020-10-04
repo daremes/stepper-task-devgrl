@@ -66,7 +66,7 @@ const PlanBox = styled.div`
 const Title = styled.div`
   font-weight: bold;
   margin-bottom: 4px;
-  @media (max-width: 360px) {
+  @media (max-width: 416px) {
     font-size: 12px;
   }
 `;
@@ -74,7 +74,7 @@ const Title = styled.div`
 const Description = styled.div`
   font-weight: 300;
   padding-right: 40px;
-  @media (max-width: 360px) {
+  @media (max-width: 416px) {
     padding-right: 8px;
     font-size: 12px;
   }
@@ -89,7 +89,7 @@ const Price = styled.div`
     padding: 0 16px;
     font-size: 13px;
     text-align: right;
-    @media (max-width: 360px) {
+    @media (max-width: 416px) {
       padding: 0;
       font-size: 10px;
     }
@@ -103,7 +103,7 @@ const Price = styled.div`
     margin-left: 16px;
     text-align: right;
     width: 80px;
-    @media (max-width: 360px) {
+    @media (max-width: 416px) {
       width: 100%;
       margin-left: 8px;
     }
