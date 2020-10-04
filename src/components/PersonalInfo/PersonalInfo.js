@@ -1,41 +1,47 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import PayloadContext from '../Subscription/PayloadContext';
 import StepperContext from '../Stepper/StepperContext';
 
 const emailRegEx = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-export default function ParsonalInfo() {
-  const handleEvaluate = useContext(StepperContext);
-  const { payload, setPayload } = useContext(PayloadContext);
+let timerId = {};
 
-  const [formData, setFormData] = useState({
+export default function ParsonalInfo() {
+  const initState = {
     firstName: '',
     surname: '',
     email: '',
     agreement: '',
-  });
-
-  const [touched, setTouched] = useState({
-    firstName: false,
-    surname: false,
-    email: false,
-    agreement: false,
-  });
-  //
+  };
+  const handleEvaluate = useContext(StepperContext);
+  const { payload, setPayload } = useContext(PayloadContext);
+  const [formData, setFormData] = useState(initState);
+  const [touched, setTouched] = useState(initState);
   const [errors, setErrors] = useState({});
 
+  useEffect(() => {
+    // safety precautions on unmount
+    return () => {
+      Object.keys(timerId).forEach(id => {
+        clearTimeout(timerId[id]);
+      });
+    };
+  }, []);
+
   const handleChange = event => {
-    console.log(event);
     const { name, type, value, checked } = event.target;
     const newData = {
       ...formData,
       [name]: type === 'checkbox' ? checked : value,
     };
     if (!touched[name]) {
-      setTimeout(() => {
-        setTouched({ ...touched, [name]: true });
-      }, 2000);
+      // ux concerns: give our user some time to enter a valid email before marking field as "touched" and displaying a validation error
+      const timeoutToShowError = () =>
+        setTimeout(() => {
+          setTouched({ ...touched, [name]: true });
+        }, 2000);
+      timerId[name] = timeoutToShowError();
     }
     setFormData(newData);
     handleEvaluate(false);
