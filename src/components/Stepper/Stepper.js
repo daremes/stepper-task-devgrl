@@ -1,5 +1,6 @@
 // a reusable stepper component
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import StepperContext from './StepperContext';
@@ -153,3 +154,18 @@ const TextButton = styled.button`
     color: #777;
   }
 `;
+
+Stepper.propTypes = {
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      component: PropTypes.element,
+      isEvaluated: PropTypes.bool,
+    })
+  ).isRequired,
+  onLastStep: PropTypes.func,
+};
+
+Stepper.defaultProps = {
+  onLastStep: () => null,
+};

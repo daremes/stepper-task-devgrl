@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import calculatePrice from './calculatePrice';
 
@@ -47,6 +48,7 @@ export default function Plan({
   );
 }
 
+//styled-components
 const PlanBox = styled.div`
   display: flex;
   font-size: 14px;
@@ -112,3 +114,20 @@ const Price = styled.div`
     text-decoration: line-through;
   }
 `;
+
+// PropTypes
+Plan.propTypes = {
+  handleSelect: PropTypes.func.isRequired,
+  subscriptionLength: PropTypes.number,
+  thisPlanLength: PropTypes.number.isRequired,
+  monthlyPrice: PropTypes.number.isRequired,
+  discountPercentage: PropTypes.number.isRequired,
+  title: PropTypes.string,
+  description: PropTypes.string,
+};
+
+Plan.defaultProps = {
+  title: 'empty title',
+  description: 'empty description',
+  subscriptionLength: undefined,
+};
