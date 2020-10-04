@@ -9,8 +9,7 @@ export default function Stepper({ options, onLastStep }) {
   const [currentStep, setCurrentStep] = useState(0);
   const [steps, setSteps] = useState([...options]);
 
-  const ComponentToDisplay = () => steps[currentStep].component;
-  const { isEvaluated } = steps[currentStep];
+  const { isEvaluated, component } = steps[currentStep];
 
   const handleEvaluate = (isEvaluated) => {
     const newStepsOptions = [...steps];
@@ -53,9 +52,7 @@ export default function Stepper({ options, onLastStep }) {
           ))}
         </StepsVisualization>
         <div className="centered">
-          <Content>
-            <ComponentToDisplay />
-          </Content>
+          <Content>{component}</Content>
           <Controls>
             <TextButton
               disabled={currentStep > 0 ? false : true}
