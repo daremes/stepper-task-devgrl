@@ -85,5 +85,8 @@ const Container = styled.div`
   .personal {
     display: flex;
     justify-content: space-between;
+    @media (max-width: 416px) {
+      flex-direction: column;
+    }
   }
 `;
