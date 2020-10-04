@@ -113,13 +113,14 @@ export default function ParsonalInfo() {
             <input
               name='agreement'
               type='checkbox'
+              id='check1'
               value={formData.email}
               checked={formData.agreement}
               onChange={handleChange}
               placeholder='License agreement stuff'
             />
             <ErrMsg>{touched.agreement ? errors.agreement : null}</ErrMsg>
-            <label> Some agreement or stuff like that</label>
+            <label htmlFor='check1'>Some agreement or stuff like that</label>
           </div>
         </InputField>
       </form>

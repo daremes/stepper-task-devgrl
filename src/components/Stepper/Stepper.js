@@ -9,7 +9,6 @@ export default function Stepper({ options, onLastStep }) {
   const history = useHistory();
   const [currentStep, setCurrentStep] = useState(0);
   const [steps, setSteps] = useState([...options]);
-
   const { isEvaluated, component } = steps[currentStep];
 
   const handleEvaluate = isEvaluated => {
@@ -43,6 +42,9 @@ export default function Stepper({ options, onLastStep }) {
             <div
               key={`step-${i}`}
               className='step'
+              onClick={
+                i < currentStep ? () => setCurrentStep(s => s - 1) : () => null
+              }
               style={{
                 background: i === currentStep ? '#fafafa' : '#444',
                 color: i === currentStep ? '#444' : '#fafafa',
