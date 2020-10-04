@@ -1,11 +1,11 @@
-import React from "react";
-import styled from "styled-components";
-import calculatePrice from "./calculatePrice";
+import React from 'react';
+import styled from 'styled-components';
+import calculatePrice from './calculatePrice';
 
 function getStyle(subscriptionType, selectedType) {
   return {
-    background: subscriptionType === selectedType ? "#444" : "transparent",
-    color: subscriptionType === selectedType ? "#fafafa" : "#444",
+    background: subscriptionType === selectedType ? '#444' : 'transparent',
+    color: subscriptionType === selectedType ? '#fafafa' : '#444',
   };
 }
 
@@ -30,18 +30,18 @@ export default function Plan({
       onClick={() => handleSelect(thisPlanLength, discountPercentage)}
       style={getStyle(subscriptionLength, thisPlanLength)}
     >
-      <div className="flex-85">
+      <div className='flex-85'>
         <Title>{title}</Title>
         <Description>{description}</Description>
       </div>
       <Price>
         {discountPercentage ? (
-          <div className="discount-box">
-            <div className="discount-amount">{discountPercentage}% OFF</div>
-            <div className="discount-oldprice">${regularPrice}</div>
+          <div className='discount-box'>
+            <div className='discount-amount'>{discountPercentage}% OFF</div>
+            <div className='discount-oldprice'>${regularPrice}</div>
           </div>
         ) : null}
-        <div className="price">${discountedPrice}</div>
+        <div className='price'>${discountedPrice}</div>
       </Price>
     </PlanBox>
   );

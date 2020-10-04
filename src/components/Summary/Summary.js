@@ -1,12 +1,12 @@
-import React, { useContext } from "react";
-import styled from "styled-components";
-import PayloadContext from "../Subscription/PayloadContext";
+import React, { useContext } from 'react';
+import styled from 'styled-components';
+import PayloadContext from '../Subscription/PayloadContext';
 
 function filterPeriod(periods, subscriptionLength, prop) {
   const period = periods.filter(
-    (p) => p.subscriptionLength === subscriptionLength
+    p => p.subscriptionLength === subscriptionLength
   );
-  const result = period.length > 0 ? period[0][prop] : "";
+  const result = period.length > 0 ? period[0][prop] : '';
   return result;
 }
 
@@ -19,36 +19,36 @@ export default function Summary() {
     subscriptionType,
     total,
   } = payload;
-  const lengthTitle = filterPeriod(periods, subscriptionLength, "title");
+  const lengthTitle = filterPeriod(periods, subscriptionLength, 'title');
   const discount = filterPeriod(
     periods,
     subscriptionLength,
-    "discountPercentage"
+    'discountPercentage'
   );
   return (
     <Container>
       <h2>Summary</h2>
-      <div className="personal">
+      <div className='personal'>
         <div>
           {formData.firstName} {formData.surname}
         </div>
         <div>{formData.email}</div>
       </div>
-      <div className="plan-summary">
+      <div className='plan-summary'>
         <div>{subscriptionType.toUpperCase()} Plan</div>
         <div>{lengthTitle}</div>
       </div>
-      <div className="discount">
+      <div className='discount'>
         {discount ? (
           <div>
             Discount <b>{discount}% OFF</b> applied.
           </div>
         ) : null}
       </div>
-      <div className="to-pay">
-        <div className="price-box">
-          <div className="label">You'll be charged</div>
-          <div className="total label">${total}</div>
+      <div className='to-pay'>
+        <div className='price-box'>
+          <div className='label'>You'll be charged</div>
+          <div className='total label'>${total}</div>
         </div>
       </div>
     </Container>

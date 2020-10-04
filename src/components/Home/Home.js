@@ -1,13 +1,13 @@
-import React from "react";
-import { useHistory } from "react-router-dom";
-import styled from "styled-components";
+import React from 'react';
+import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
 
 export default function Home() {
   const history = useHistory();
   return (
     <Container>
       <h1>Home</h1>
-      <Button onClick={() => history.push("/subscription")}>Subscribe</Button>
+      <Button onClick={() => history.push('/subscription')}>Subscribe</Button>
     </Container>
   );
 }

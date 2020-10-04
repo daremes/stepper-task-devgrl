@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
-import styled from "styled-components";
-import PayloadContext from "../Subscription/PayloadContext";
-import StepperContext from "../Stepper/StepperContext";
-import calculatePrice from "./calculatePrice";
-import Plan from "./Plan";
+import React, { useContext } from 'react';
+import styled from 'styled-components';
+import PayloadContext from '../Subscription/PayloadContext';
+import StepperContext from '../Stepper/StepperContext';
+import calculatePrice from './calculatePrice';
+import Plan from './Plan';
 
 export default function SubscriptionLength() {
   const handleEvaluate = useContext(StepperContext);

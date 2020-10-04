@@ -1,12 +1,12 @@
-import React, { useContext } from "react";
-import styled from "styled-components";
-import PayloadContext from "../Subscription/PayloadContext";
-import StepperContext from "../Stepper/StepperContext";
+import React, { useContext } from 'react';
+import styled from 'styled-components';
+import PayloadContext from '../Subscription/PayloadContext';
+import StepperContext from '../Stepper/StepperContext';
 
 function getStyle(subscriptionType, selectedType) {
   return {
-    background: subscriptionType === selectedType ? "#444" : "transparent",
-    color: subscriptionType === selectedType ? "#fafafa" : "#444",
+    background: subscriptionType === selectedType ? '#444' : 'transparent',
+    color: subscriptionType === selectedType ? '#fafafa' : '#444',
   };
 }
 
@@ -15,7 +15,7 @@ export default function SubscriptionType() {
   const { payload, setPayload } = useContext(PayloadContext);
   const { subscriptionType, basePrices } = payload;
 
-  const handleSelect = (type) => {
+  const handleSelect = type => {
     handleEvaluate(true);
     setPayload({
       ...payload,
@@ -28,8 +28,8 @@ export default function SubscriptionType() {
     <Container>
       <h2>Subscription Type</h2>
       <PlanBox
-        onClick={() => handleSelect("personal")}
-        style={getStyle(subscriptionType, "personal")}
+        onClick={() => handleSelect('personal')}
+        style={getStyle(subscriptionType, 'personal')}
       >
         <div>
           <Title>Personal</Title>
@@ -42,8 +42,8 @@ export default function SubscriptionType() {
         <Price>${payload.basePrices ? basePrices.personal : 0.0}/mo.</Price>
       </PlanBox>
       <PlanBox
-        onClick={() => handleSelect("professional")}
-        style={getStyle(subscriptionType, "professional")}
+        onClick={() => handleSelect('professional')}
+        style={getStyle(subscriptionType, 'professional')}
       >
         <div>
           <Title>Professional</Title>
@@ -56,8 +56,8 @@ export default function SubscriptionType() {
         <Price>${payload.basePrices ? basePrices.professional : 0.0}/mo.</Price>
       </PlanBox>
       <PlanBox
-        onClick={() => handleSelect("enterprise")}
-        style={getStyle(subscriptionType, "enterprise")}
+        onClick={() => handleSelect('enterprise')}
+        style={getStyle(subscriptionType, 'enterprise')}
       >
         <div>
           <Title>Enterprise</Title>

@@ -1,8 +1,8 @@
 // a reusable stepper component
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-import styled from "styled-components";
-import StepperContext from "./StepperContext";
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
+import StepperContext from './StepperContext';
 
 export default function Stepper({ options, onLastStep }) {
   const history = useHistory();
@@ -11,7 +11,7 @@ export default function Stepper({ options, onLastStep }) {
 
   const { isEvaluated, component } = steps[currentStep];
 
-  const handleEvaluate = (isEvaluated) => {
+  const handleEvaluate = isEvaluated => {
     const newStepsOptions = [...steps];
     newStepsOptions[currentStep].isEvaluated = isEvaluated;
     setSteps(newStepsOptions);
@@ -22,15 +22,15 @@ export default function Stepper({ options, onLastStep }) {
       if (onLastStep) {
         onLastStep();
       } else {
-        history.push("/");
+        history.push('/');
       }
     }
-    setCurrentStep((currentStep) => currentStep + 1);
+    setCurrentStep(currentStep => currentStep + 1);
   };
 
   const handleClickBack = () => {
     if (currentStep > 0) {
-      setCurrentStep((currentStep) => currentStep - 1);
+      setCurrentStep(currentStep => currentStep - 1);
     }
   };
 
@@ -41,17 +41,17 @@ export default function Stepper({ options, onLastStep }) {
           {steps.map((step, i) => (
             <div
               key={`step-${i}`}
-              className="step"
+              className='step'
               style={{
-                background: i === currentStep ? "#fafafa" : "#444",
-                color: i === currentStep ? "#444" : "#fafafa",
+                background: i === currentStep ? '#fafafa' : '#444',
+                color: i === currentStep ? '#444' : '#fafafa',
               }}
             >
               {step.name ? step.name : i + 1}
             </div>
           ))}
         </StepsVisualization>
-        <div className="centered">
+        <div className='centered'>
           <Content>{component}</Content>
           <Controls>
             <TextButton
@@ -61,7 +61,7 @@ export default function Stepper({ options, onLastStep }) {
               BACK
             </TextButton>
             <Button disabled={!isEvaluated} onClick={handleClickNext}>
-              {currentStep === steps.length - 1 ? "COMPLETE ORDER" : "NEXT"}
+              {currentStep === steps.length - 1 ? 'COMPLETE ORDER' : 'NEXT'}
             </Button>
           </Controls>
         </div>
@@ -98,7 +98,7 @@ const Controls = styled.div`
   margin: 24px 0;
   display: flex;
   justify-content: space-between;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
 `;
 
 const Button = styled.button`
