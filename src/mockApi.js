@@ -1,6 +1,6 @@
 import { basePrices, periods } from "./mockData";
 
-function mockApi(method) {
+function mockApi(method, payload) {
   if (method === "GET") {
     const data = { basePrices, periods };
     return new Promise((resolve) => {
@@ -12,7 +12,7 @@ function mockApi(method) {
   if (method === "POST") {
     return new Promise((resolve) => {
       setTimeout(() => {
-        resolve("OK");
+        resolve({ status: "OK", payload });
       }, 1000);
     });
   }

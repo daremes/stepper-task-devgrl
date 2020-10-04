@@ -3,49 +3,61 @@ import styled from "styled-components";
 import PayloadContext from "../Subscription/PayloadContext";
 import StepperContext from "../Stepper/StepperContext";
 
+const emailRegEx = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
 export default function ParsonalInfo() {
   const handleEvaluate = useContext(StepperContext);
   const { payload, setPayload } = useContext(PayloadContext);
 
   const [formData, setFormData] = useState({
-    firstName: payload.formData ? payload.formData.firstName : "",
-    surname: payload.formData ? payload.formData.surname : "",
-    email: payload.formData ? payload.formData.email : "",
-    agreement: payload.formData ? payload.formData.agreement : false,
+    firstName: "",
+    surname: "",
+    email: "",
+    agreement: "",
+  });
+
+  const [touched, setTouched] = useState({
+    firstName: false,
+    surname: false,
+    email: false,
+    agreement: false,
   });
   //
-  const [, setErrors] = useState({});
+  const [errors, setErrors] = useState({});
 
   const handleChange = (event) => {
+    console.log(event);
     const { name, type, value, checked } = event.target;
     const newData = {
       ...formData,
       [name]: type === "checkbox" ? checked : value,
     };
-    setFormData(newData);
-    if (type === "checkbox" && checked) {
-      setErrors({});
-      validateForm(newData);
-    } else if (type === "checkbox" && !checked) {
-      validateForm(newData);
-      handleEvaluate(false);
+    if (!touched[name]) {
+      setTimeout(() => {
+        setTouched({ ...touched, [name]: true });
+      }, 2000);
     }
+    setFormData(newData);
+    handleEvaluate(false);
+    validateForm(newData);
   };
 
   const validateForm = (newData) => {
-    const { firstName, surname, email } = formData;
+    const { firstName, surname, email, agreement } = newData;
     const err = {};
-    // TODO: add validation
-    // if (firstName.length < 1) {
-    //   err.firstName = "Fill in your name.";
-    // }
-    // if (surname.length < 1) {
-    //   err.surname = "Fill in your name.";
-    // }
-    // if (!email.includes("@") || !email.includes(".")) {
-    //   err.email = "Use your valid email";
-    // }
-    if (Object.keys(err).length < 1) {
+    if (firstName.length < 1) {
+      err.firstName = "Fill in your name.";
+    }
+    if (surname.length < 1) {
+      err.surname = "Fill in your name.";
+    }
+    if (!emailRegEx.test(email)) {
+      err.email = "Use your valid email";
+    }
+    if (!agreement) {
+      err.agreement = "You have to agree to something";
+    }
+    if (Object.keys(err).length < 1 && agreement) {
       setPayload({
         ...payload,
         formData: newData,
@@ -59,46 +71,50 @@ export default function ParsonalInfo() {
     <Container>
       <h2>Personal Details</h2>
       <form>
-        <TextField
-          name="firstName"
-          type="text"
-          className="input-field"
-          id="firstName"
-          value={formData.firstName}
-          onChange={handleChange}
-          placeholder="First Name"
-        />
-        <TextField
-          name="surname"
-          type="text"
-          className="input-field"
-          id="surname"
-          value={formData.surname}
-          onChange={handleChange}
-          placeholder="Surname"
-        />
-        <TextField
-          name="email"
-          type="email"
-          className="input-field"
-          id="email"
-          value={formData.email}
-          onChange={handleChange}
-          placeholder="Email"
-        />
-        <div>
-          <TextField
-            name="agreement"
-            type="checkbox"
-            className="input-field"
-            id="agreement"
-            value={formData.agreement}
-            checked={formData.agreement}
+        <InputField>
+          <input
+            name="firstName"
+            type="text"
+            value={formData.firstName}
             onChange={handleChange}
-            placeholder="License agreement stuff"
+            placeholder="First Name"
           />
-          <label> Some agreement or stuff like that</label>
-        </div>
+          <ErrMsg>{touched.firstName ? errors.firstName : null}</ErrMsg>
+        </InputField>
+        <InputField>
+          <input
+            name="surname"
+            type="text"
+            value={formData.surname}
+            onChange={handleChange}
+            placeholder="Surname"
+          />
+          <ErrMsg>{touched.surname ? errors.surname : null}</ErrMsg>
+        </InputField>
+        <InputField>
+          <input
+            name="email"
+            type="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Email"
+          />
+          <ErrMsg>{touched.email ? errors.email : null}</ErrMsg>
+        </InputField>
+        <InputField>
+          <div>
+            <input
+              name="agreement"
+              type="checkbox"
+              value={formData.email}
+              checked={formData.agreement}
+              onChange={handleChange}
+              placeholder="License agreement stuff"
+            />
+            <ErrMsg>{touched.agreement ? errors.agreement : null}</ErrMsg>
+            <label> Some agreement or stuff like that</label>
+          </div>
+        </InputField>
       </form>
       <h2>Payment Method</h2>
       <div style={{ height: "48px" }}>...etc...</div>
@@ -108,21 +124,31 @@ export default function ParsonalInfo() {
 
 const Container = styled.div`
   form {
-    display: flex;
-    flex-direction: column;
-    max-width: 450px;
   }
 `;
-const TextField = styled.input`
-  padding: 5px;
-  font-size: 16px;
-  border-width: 0px;
-  border-color: #cccccc;
-  background-color: #ffffff;
-  color: #000000;
-  border-bottom: 2px solid #444;
-  border-radius: 0px;
-  box-shadow: 0px 0px 5px rgba(66, 66, 66, 0);
-  margin-bottom: 24px;
-  font-family: "Montserrat", sans-serif;
+const InputField = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-width: 450px;
+  position: relative;
+  input {
+    padding: 5px;
+    font-size: 16px;
+    border-width: 0px;
+    border-color: #cccccc;
+    background-color: #ffffff;
+    color: #000000;
+    border-bottom: 2px solid #444;
+    border-radius: 0px;
+    box-shadow: 0px 0px 5px rgba(66, 66, 66, 0);
+    margin-bottom: 24px;
+    font-family: "Montserrat", sans-serif;
+  }
+`;
+
+const ErrMsg = styled.div`
+  position: absolute;
+  font-size: 12px;
+  color: red;
+  top: -14px;
 `;
