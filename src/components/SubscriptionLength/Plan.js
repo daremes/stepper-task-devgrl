@@ -66,11 +66,18 @@ const PlanBox = styled.div`
 const Title = styled.div`
   font-weight: bold;
   margin-bottom: 4px;
+  @media (max-width: 360px) {
+    font-size: 12px;
+  }
 `;
 
 const Description = styled.div`
   font-weight: 300;
   padding-right: 40px;
+  @media (max-width: 360px) {
+    padding-right: 8px;
+    font-size: 12px;
+  }
 `;
 
 const Price = styled.div`
@@ -82,15 +89,24 @@ const Price = styled.div`
     padding: 0 16px;
     font-size: 13px;
     text-align: right;
+    @media (max-width: 360px) {
+      padding: 0;
+      font-size: 10px;
+    }
   }
   .discount-amount {
     font-weight: 700;
+    min-width: 52px;
   }
   .price {
     align-self: center;
     margin-left: 16px;
     text-align: right;
     width: 80px;
+    @media (max-width: 360px) {
+      width: 100%;
+      margin-left: 8px;
+    }
   }
   .discount-oldprice {
     text-decoration: line-through;

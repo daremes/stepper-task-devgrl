@@ -87,6 +87,9 @@ const PlanBox = styled.div`
   &:hover {
     border: 2px solid #444;
   }
+  @media (max-width: 360px) {
+    font-size: 12px;
+  }
 `;
 const Title = styled.div`
   font-weight: bold;
@@ -96,6 +99,10 @@ const Title = styled.div`
 const Description = styled.div`
   font-weight: 300;
   padding-right: 40px;
+  @media (max-width: 360px) {
+    font-size: 12px;
+    padding-right: 16px;
+  }
 `;
 
 const Price = styled.div`
